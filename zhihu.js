@@ -6,11 +6,11 @@ function getAuthorList(){
   }
   return ret
 }
-function renderAuthorList(node){
-  var authors = getAuthorList()
-  node.innerHTML = authors.length
-} 
-var header = document.getElementById('zh-home-list-title')
-header.innerText = "汪汪汪"
-var zhihu_author = document.getElementById('zhihu_author')
-renderAuthorList(zhihu_author)
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === 'fetch') {
+    var authors = getAuthorList()
+    console.log('author: ', authors)
+    sendResponse({authors: authors})
+  }
+})
