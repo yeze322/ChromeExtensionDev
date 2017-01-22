@@ -17,8 +17,8 @@ my_clock(clock_div)
 
 
 var zhihu_div = document.getElementById('zhihu')
-function displayAuthor (authors, node) {
-  node.innerHTML = authors
+function displayField (contents, node) {
+  node.innerHTML = '<ul>' + contents.map(name => `<li>${name}</li>`).join('') + '</ul>'
 }
 
 chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
@@ -26,7 +26,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
     tabs[0].id,
     { action: 'fetch' },
     function (response) {
-      displayAuthor(response.authors, zhihu_div)
+      displayField(response.questions, zhihu_div)
     }
   )
 })
