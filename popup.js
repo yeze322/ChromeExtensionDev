@@ -17,7 +17,8 @@ my_clock(clock_div)
 
 
 var zhihu_div = document.getElementById('zhihu')
-function displayField (contents, node) {
+function displayField (response, node) {
+  var contents = response.questions
   node.innerHTML = '<ul>' + contents.map(name => `<li>${name}</li>`).join('') + '</ul>'
 }
 
@@ -26,7 +27,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
     tabs[0].id,
     { action: 'fetch' },
     function (response) {
-      displayField(response.questions, zhihu_div)
+      displayField(response, zhihu_div)
     }
   )
 })
